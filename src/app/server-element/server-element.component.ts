@@ -6,7 +6,7 @@ import {
   Input,
   OnChanges, OnDestroy,
   OnInit,
-  SimpleChanges
+  SimpleChanges, ViewChild
 } from '@angular/core';
 
 @Component({
@@ -22,8 +22,10 @@ export class ServerElementComponent implements
   AfterContentChecked,
   AfterViewInit,
   AfterViewChecked,
-  OnDestroy{
+  OnDestroy
+{
   @Input('serverElement') element: {type: string, name: string, content: string} // définir l'objet anonyme sur le tas
+  @ViewChild('heading', {static: true}) header;
 
   constructor() {
     console.log('constructor called');
@@ -35,6 +37,7 @@ export class ServerElementComponent implements
 
   ngAfterViewInit(): void {
     console.log('ngAfterViewInit called');
+    console.log('Text content: ' + this.header.nativeElement.textContent);
   }
 
   ngAfterContentChecked(): void {
@@ -51,6 +54,7 @@ export class ServerElementComponent implements
 
   ngOnInit(): void {
     console.log('ngOnInit called');
+    console.log('Text content: ' + this.header.nativeElement.textContent);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
