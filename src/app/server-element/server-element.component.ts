@@ -1,8 +1,8 @@
 import {
   AfterContentChecked,
   AfterContentInit, AfterViewChecked, AfterViewInit,
-  Component,
-  DoCheck,
+  Component, ContentChild,
+  DoCheck, ElementRef,
   Input,
   OnChanges, OnDestroy,
   OnInit,
@@ -25,7 +25,8 @@ export class ServerElementComponent implements
   OnDestroy
 {
   @Input('serverElement') element: {type: string, name: string, content: string} // définir l'objet anonyme sur le tas
-  @ViewChild('heading', {static: true}) header;
+  @ViewChild('heading', {static: true}) header: ElementRef;
+  @ContentChild('contentParagraph', {static: true}) paragraph: ElementRef;
 
   constructor() {
     console.log('constructor called');
@@ -38,6 +39,7 @@ export class ServerElementComponent implements
   ngAfterViewInit(): void {
     console.log('ngAfterViewInit called');
     console.log('Text content: ' + this.header.nativeElement.textContent);
+    console.log('Text content of paragraph: ' + this.paragraph.nativeElement.textContent);
   }
 
   ngAfterContentChecked(): void {
@@ -55,6 +57,7 @@ export class ServerElementComponent implements
   ngOnInit(): void {
     console.log('ngOnInit called');
     console.log('Text content: ' + this.header.nativeElement.textContent);
+    console.log('Text content of paragraph: ' + this.paragraph.nativeElement.textContent);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
